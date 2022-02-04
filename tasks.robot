@@ -9,22 +9,26 @@ Library           RPA.Robocorp.Vault
 Library           RPA.Tables
 Library           RPA.HTTP
 Library           RPA.Excel.Files
+Library           Dialogs
+Library           RPA.Dialogs
 
 *** Tasks ***
 Order robots from RobotSpareBin Industries Inc
     Open the robot order website
     ${orders}=    Get orders
-    #FOR    ${row}    IN    @{orders}
     Close the annoying modal
-    #    Fill the form    ${row}
-    #    Preview the robot
-    #    Submit the order
-    #    ${pdf}=    Store the receipt as a PDF file    ${row}[Order number]
-    #    ${screenshot}=    Take a screenshot of the robot    ${row}[Order number]
-    #    Embed the robot screenshot to the receipt PDF file    ${screenshot}    ${pdf}
-    #    Go to order another robot
-    #END
-    # Create a ZIP file of the receipts
+    # the above line should later be added inside the for lop below
+    FOR    ${row}    IN    @{orders}
+        Fill the form    ${row}
+        #    Preview the robot
+        #    Submit the order
+        #    ${pdf}=    Store the receipt as a PDF file    ${row}[Order number]
+        #    ${screenshot}=    Take a screenshot of the robot    ${row}[Order number]
+        #    Embed the robot screenshot to the receipt PDF file    ${screenshot}    ${pdf}
+        #    Go to order another robot
+        #END
+        # Create a ZIP file of the receipts
+    END
 
 *** Keywords ***
 Open the robot order website
@@ -40,3 +44,8 @@ Get orders
 
 Close the annoying modal
     Click Button    css:button.btn.btn-dark
+
+Fill the form
+    [Arguments]    ${row}
+    Select From List By Index    id:head    ${row}[Head]
+    Select Radio Button    body    ${row}[Body]

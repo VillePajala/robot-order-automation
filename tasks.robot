@@ -21,7 +21,7 @@ Order robots from RobotSpareBin Industries Inc
     # the above line should later be added inside the for lop below
     FOR    ${row}    IN    @{orders}
         Fill the form    ${row}
-        #    Preview the robot
+        Preview the robot
         #    Submit the order
         #    ${pdf}=    Store the receipt as a PDF file    ${row}[Order number]
         #    ${screenshot}=    Take a screenshot of the robot    ${row}[Order number]
@@ -53,3 +53,6 @@ Fill the form
     Press Keys    xpath=//body    Keys.TAB + Keys.up
     Input Text    css:input[placeholder="Enter the part number for the legs"]    ${row}[Legs]
     Input Text    name:address    ${row}[Address]
+
+Preview the robot
+    Click Button    preview

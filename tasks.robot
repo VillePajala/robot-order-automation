@@ -56,3 +56,4 @@ Fill the form
 
 Preview the robot
     Click Button    preview
+    #

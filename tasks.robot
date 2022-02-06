@@ -11,6 +11,7 @@ Library           RPA.HTTP
 Library           RPA.Excel.Files
 Library           Dialogs
 Library           RPA.Dialogs
+Library           RPA.Desktop.Windows
 
 *** Tasks ***
 Order robots from RobotSpareBin Industries Inc
@@ -49,3 +50,6 @@ Fill the form
     [Arguments]    ${row}
     Select From List By Index    id:head    ${row}[Head]
     Select Radio Button    body    ${row}[Body]
+    Press Keys    xpath=//body    Keys.TAB + Keys.up
+    Input Text    css:input[placeholder="Enter the part number for the legs"]    ${row}[Legs]
+    Input Text    name:address    ${row}[Address]

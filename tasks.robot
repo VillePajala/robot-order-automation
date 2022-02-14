@@ -58,12 +58,20 @@ Preview the robot
 
 Submit the order
     Wait Until Keyword Succeeds
-    ...    3x
+    ...    5x
     ...    1s
-    ...    Click Button    id:order
+    ...    Validate order
+
+Validate order
+    Click Button    id:order
+    Wait Until Page Contains Element    id:order-another
 
 Go to order another robot
     Wait Until Keyword Succeeds
-    ...    3x
-    ...    1s
-    ...    Click Button    id:order-another
+    ...    5x
+    ...    1 sec
+    ...    Go to next order
+
+Go to next order
+    Click Button    id:order-another
+    Wait Until Page Contains Element    id:order

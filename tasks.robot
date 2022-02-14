@@ -17,16 +17,15 @@ Library           RPA.Desktop.Windows
 Order robots from RobotSpareBin Industries Inc
     Open the robot order website
     ${orders}=    Get orders
-    Close the annoying modal
-    # the above line should later be added inside the for lop below
     FOR    ${row}    IN    @{orders}
+        Close the annoying modal
         Fill the form    ${row}
         Preview the robot
-        #    Submit the order
+        Submit the order
         #    ${pdf}=    Store the receipt as a PDF file    ${row}[Order number]
         #    ${screenshot}=    Take a screenshot of the robot    ${row}[Order number]
         #    Embed the robot screenshot to the receipt PDF file    ${screenshot}    ${pdf}
-        #    Go to order another robot
+        Go to order another robot
         #END
         # Create a ZIP file of the receipts
     END
@@ -56,4 +55,15 @@ Fill the form
 
 Preview the robot
     Click Button    preview
-    #
+
+Submit the order
+    Wait Until Keyword Succeeds
+    ...    3x
+    ...    1s
+    ...    Click Button    id:order
+
+Go to order another robot
+    Wait Until Keyword Succeeds
+    ...    3x
+    ...    1s
+    ...    Click Button    id:order-another

@@ -12,6 +12,7 @@ Library           RPA.Excel.Files
 Library           Dialogs
 Library           RPA.Dialogs
 Library           RPA.Desktop.Windows
+Library           RPA.PDF
 
 *** Tasks ***
 Order robots from RobotSpareBin Industries Inc
@@ -22,7 +23,7 @@ Order robots from RobotSpareBin Industries Inc
         Fill the form    ${row}
         Preview the robot
         Submit the order
-        #    ${pdf}=    Store the receipt as a PDF file    ${row}[Order number]
+        ${pdf}=    Store the receipt as a PDF file    ${row}[Order number]
         #    ${screenshot}=    Take a screenshot of the robot    ${row}[Order number]
         #    Embed the robot screenshot to the receipt PDF file    ${screenshot}    ${pdf}
         Go to order another robot
@@ -65,6 +66,13 @@ Submit the order
 Validate order
     Click Button    id:order
     Wait Until Page Contains Element    id:order-another
+
+Store the receipt as a PDF file
+    [Arguments]    ${orderNumber}
+    Wait Until Element Is Visible    id:receipt
+    ${receipt_html}=    Get Element Attribute    id:receipt    outerHTML
+    ${pdfPath}=    Html To Pdf    ${receipt_html}    ${OUTPUT_DIR}${/}${orderNumber}.pdf
+    [Return]    ${pdfPath}
 
 Go to order another robot
     Wait Until Keyword Succeeds
